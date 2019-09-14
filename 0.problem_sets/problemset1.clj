@@ -1,6 +1,6 @@
 ;----------------------------------------------------------
 ; Problem Set #1
-; Date: september 5th, 2019.
+; Date: september 13th, 2019.
 ; Author:
 ;           A01373111 José Kotásek
 ;           A01374406 Arturo Amador Paulino
@@ -148,10 +148,22 @@
 
 ; 13.- standard-deviation
 (defn standard-deviation
+  [lst])
+
+(defn square [x] (* x x))
+(defn standard-deviation [lst] 
   "Takes a list lst as its argument. It returns the
   population standard deviation of the numbers contained
   in lst, or nil if lst is empty. "
-  [lst])
+  (if (empty? lst)
+    nil
+    (sqrt (/ 
+        (reduce + (map square (map - lst (repeat (average lst))))) 
+        (count lst)
+      )
+    )
+  )
+)
 
 
 ; --------------------------------------------------------
@@ -285,26 +297,26 @@
          (average '(1.7 4.5 0 2.0 3.4 5 2.5 2.2 1.2)))))
 
 ;; 13.- standard-deviation
-;(deftest test-standard-deviation
-;  (is (nil? (standard-deviation ())))
-;  (is (aprox= 0.01
-;              1.87
-;              (standard-deviation
-;                '(6 2 3 1))))
-;  (is (aprox= 0.0001
-;              12.3153
-;              (standard-deviation
-;                '(4 8 15 16 23 42))))
-;  (is (aprox= 0.00001
-;              7.07106
-;              (standard-deviation
-;                '(110 105 90 100 95))))
-;  (is (aprox= 0.001
-;              2.983
-;              (standard-deviation
-;                '(9 2 5 4 12 7 8 11
-;                   9 3 7 4 12 5 4 10
-;                   9 6 9 4)))))
+(deftest test-standard-deviation
+  (is (nil? (standard-deviation ())))
+  (is (aprox= 0.01
+              1.87
+              (standard-deviation
+                '(6 2 3 1))))
+  (is (aprox= 0.0001
+              12.3153
+              (standard-deviation
+                '(4 8 15 16 23 42))))
+  (is (aprox= 0.00001
+              7.07106
+              (standard-deviation
+                '(110 105 90 100 95))))
+  (is (aprox= 0.001
+              2.983
+              (standard-deviation
+                '(9 2 5 4 12 7 8 11
+                  9 3 7 4 12 5 4 10
+                  9 6 9 4)))))
 
 (run-tests)
 ; --------------------------------------------------------
